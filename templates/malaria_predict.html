@@ -1,0 +1,44 @@
+{% extends 'main.html' %}
+{% block content %}
+    <div class="row" style="margin-bottom: 300px;">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <!-- Display prediction result -->
+            {% if prediction %}
+                {% if prediction == "Infected" %}
+                    <div class="card card-body alert alert-danger">
+                        <center><strong>Prediction:</strong> This cell is an <strong>Infected Malarial Cell</strong>.</center>
+                    </div>
+                {% else %}
+                    <div class="card card-body alert alert-success">
+                        <center><strong>Prediction:</strong> This cell is <strong>Uninfected</strong>.</center>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="card card-body alert alert-warning">
+                    <center>No prediction available. Please upload an image.</center>
+                </div>
+            {% endif %}
+
+            <!-- Display uploaded image -->
+            {% if image_path %}
+                <div class="card card-body mt-3">
+                    <center>
+                        <p><strong>Uploaded Image:</strong></p>
+                        <img src="{{ image_path }}" class="img-fluid" alt="Uploaded Image" style="max-width: 500px; max-height: 500px;" />
+                    </center>
+                </div>
+            {% endif %}
+
+            <!-- Back to home button -->
+            <div class="row mt-3">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <a href="{{ url_for('home') }}" class="btn btn-block btn-primary">Back to Home</a>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+{% endblock %}

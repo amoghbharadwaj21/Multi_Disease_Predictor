@@ -1,0 +1,34 @@
+# Exclude datasets
+datasets/
+
+# Exclude virtual environment
+venv/
+
+# Exclude Jupyter notebooks
+*.ipynb
+
+# Exclude stored images
+stored_images/
+
+# Exclude static files (if unnecessary for deployment)
+static/
+
+# Exclude environment variable file
+.env
+
+# Exclude compiled Python files
+*.pyc
+__pycache__/
+
+# Exclude logs and temporary files
+*.log
+*.tmp
+*.bak
+*.swp
+.DS_Store
+Thumbs.db
+
+# Exclude system files
+.idea/
+.vscode/
+*.iml
