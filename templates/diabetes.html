@@ -10,28 +10,28 @@
             <div class="card card-body" style="border: 1px solid black;">
                 <form class="form-horizontal" action="{{ url_for('predictPage') }}" method="POST">
                     <div class="form-group">
-                        <input style="border: 1px solid black;" class="form-control" type="text" name="pregnancies" placeholder="Number of Pregnancies eg. 0">
+                        <input style="border: 1px solid black;" class="form-control" type="text" name="pregnancies" placeholder="Number of Pregnancies eg. 0" required>
                     </div>
             		<div class="form-group">
-                        <input style="border: 1px solid black;" class="form-control" type="text" name="glucose" placeholder="Glucose (mg/dL) eg. 80">
+                        <input style="border: 1px solid black;" class="form-control" type="text" name="glucose" placeholder="Glucose (mg/dL) eg. 80" required>
                     </div>
             		<div class="form-group">
-                        <input style="border: 1px solid black;" class="form-control" type="text" name="bloodpressure" placeholder="Blood Pressure (mmHg) eg. 80">
+                        <input style="border: 1px solid black;" class="form-control" type="text" name="bloodpressure" placeholder="Blood Pressure (mmHg) eg. 80" required>
                     </div>
             		<div class="form-group">
-                        <input style="border: 1px solid black;" class="form-control" type="text" name="skinthickness" placeholder="Skin Thickness (mm) eg. 20">
+                        <input style="border: 1px solid black;" class="form-control" type="text" name="skinthickness" placeholder="Skin Thickness (mm) eg. 20" required>
                     </div>
             		<div class="form-group">
-                        <input style="border: 1px solid black;" class="form-control" type="text" name="insulin" placeholder="Insulin Level (IU/mL) eg. 80">
+                        <input style="border: 1px solid black;" class="form-control" type="text" name="insulin" placeholder="Insulin Level (IU/mL) eg. 80" required>
                     </div>
             		<div class="form-group">
-                        <input style="border: 1px solid black;" class="form-control" type="text" name="bmi" placeholder="Body Mass Index (kg/m²) eg. 23.1">
+                        <input style="border: 1px solid black;" class="form-control" type="text" name="bmi" placeholder="Body Mass Index (kg/m²) eg. 23.1" required>
                     </div>
             		<div class="form-group">
-                        <input style="border: 1px solid black;" class="form-control" type="text" name="dpf" placeholder="Diabetes Pedigree Function eg. 0.52">
+                        <input style="border: 1px solid black;" class="form-control" type="text" name="dpf" placeholder="Diabetes Pedigree Function eg. 0.52" required>
                     </div>
             		<div class="form-group">
-                        <input style="border: 1px solid black;" class="form-control" type="text" name="age" placeholder="Age (years) eg. 34">
+                        <input style="border: 1px solid black;" class="form-control" type="text" name="age" placeholder="Age (years) eg. 34" required>
                     </div>
 
             		<input type="submit" class="btn btn-info btn-block" value="Predict">

@@ -1,111 +1,135 @@
 {% extends 'main.html' %}
 {% block content %}
 
-<div class="row"  style="margin-bottom: 125px;">
+<div class="row" style="margin-bottom: 100px;">
     <div class="col-md-2"></div>
     <div class="col-md-8">
         <center><h1>Kidney Disease Predictor</h1></center>
         <div class="card card-body" style="border: 1px solid black;">
             <form class="form-horizontal" action="{{ url_for('predictPage') }}" method="POST">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <input style="border: 1px solid black;" class="form-control" type="text" name="age" placeholder="age">
+                            <label for="age">Age (years)</label>
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="age" placeholder="Enter age" required>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <input style="border: 1px solid black;" class="form-control" type="text" name="bp" placeholder="bp">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <input style="border: 1px solid black;" class="form-control" type="text" name="al" placeholder="al">
+                            <label for="bp">Blood Pressure (mmHg)</label>
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="bp" placeholder="Enter blood pressure" required>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <input style="border: 1px solid black;" class="form-control" type="text" name="su" placeholder="su">
+                            <label for="al">Albumin Level</label>
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="al" placeholder="Enter albumin level" required>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <input style="border: 1px solid black;" class="form-control" type="text" name="rbc" placeholder="rbc">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <input style="border: 1px solid black;" class="form-control" type="text" name="pc" placeholder="pc">
+                            <label for="su">Sugar Level</label>
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="su" placeholder="Enter sugar level" required>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <input style="border: 1px solid black;" class="form-control" type="text" name="pcc" placeholder="pcc">
+                            <label for="rbc">Red Blood Cells (Normal: 0, Abnormal: 1)</label>
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="rbc" placeholder="0 or 1" required>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <input style="border: 1px solid black;" class="form-control" type="text" name="ba" placeholder="ba">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <input style="border: 1px solid black;" class="form-control" type="text" name="bgr" placeholder="bgr">
+                            <label for="pc">Pus Cell (Normal: 0, Abnormal: 1)</label>
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="pc" placeholder="0 or 1" required>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <input style="border: 1px solid black;" class="form-control" type="text" name="bu" placeholder="bu">
+                            <label for="pcc">Pus Cell Clumps (Not Present: 0, Present: 1)</label>
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="pcc" placeholder="0 or 1" required>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <input style="border: 1px solid black;" class="form-control" type="text" name="sc" placeholder="sc">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <input style="border: 1px solid black;" class="form-control" type="text" name="pot" placeholder="pot">
+                            <label for="ba">Bacteria (Not Present: 0, Present: 1)</label>
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="ba" placeholder="0 or 1" required>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <input style="border: 1px solid black;" class="form-control" type="text" name="wc" placeholder="wc">
+                            <label for="bgr">Blood Glucose Random (mg/dL)</label>
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="bgr" placeholder="Enter BGR" required>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <input style="border: 1px solid black;" class="form-control" type="text" name="htn" placeholder="htn">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <input style="border: 1px solid black;" class="form-control" type="text" name="dm" placeholder="dm">
+                            <label for="bu">Blood Urea (mg/dL)</label>
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="bu" placeholder="Enter Blood Urea" required>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <input style="border: 1px solid black;" class="form-control" type="text" name="cad" placeholder="cad">
+                            <label for="sc">Serum Creatinine (mg/dL)</label>
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="sc" placeholder="Enter Serum Creatinine" required>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <input style="border: 1px solid black;" class="form-control" type="text" name="pe" placeholder="pe">
+                            <label for="pot">Potassium (mEq/L)</label>
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="pot" placeholder="Enter Potassium Level" required>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <input style="border: 1px solid black;" class="form-control" type="text" name="ane" placeholder="ane">
+                            <label for="wc">White Blood Cells Count</label>
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="wc" placeholder="Enter White Blood Cells Count" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="htn">Hypertension (Yes: 1, No: 0)</label>
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="htn" placeholder="0 or 1" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="dm">Diabetes Mellitus (Yes: 1, No: 0)</label>
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="dm" placeholder="0 or 1" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="cad">Coronary Artery Disease (Yes: 1, No: 0)</label>
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="cad" placeholder="0 or 1" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="pe">Pedal Edema (Yes: 1, No: 0)</label>
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="pe" placeholder="0 or 1" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="ane">Anemia (Yes: 1, No: 0)</label>
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="ane" placeholder="0 or 1" required>
                         </div>
                     </div>
                 </div>
