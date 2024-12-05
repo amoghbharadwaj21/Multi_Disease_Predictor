@@ -50,3 +50,4 @@ pandas
 matplotlib
 opencv-python
 reportlab
+gunicorn

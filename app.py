@@ -200,7 +200,7 @@ def pneumoniapredictPage():
                 img = np.expand_dims(img, axis=0)  # Add batch dimension (1, 224, 224, 3)
                 
                 # Load the pneumonia detection model
-                model = load_model("D:/CodeGround/Multi_Disease_Predictor/models/pneumonia_cnn.keras")
+                model = load_model("models/pneumonia_cnn.keras")
                 
                 # Make the prediction
                 prediction = model.predict(img)[0]  # Assuming binary classification
