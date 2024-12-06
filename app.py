@@ -59,13 +59,14 @@ def get_report(pred, dic):
 
         1. Analyze the patient's condition based on the provided medical data, identifying any signs or risks.
         2. Provide a prognosis and any associated risks, including possible links to other diseases (e.g., the risk of kidney failure due to diabetes, heart disease related to liver dysfunction).
-        3. Offer treatment recommendations, including lifestyle changes, medications, and any specific tests that may be required for further investigation.
+        3. Offer treatment recommendations, including both lifestyle changes, medications (Allopathic), and any specific tests that may be required for further investigation.
         4. Mention any other risk factors or conditions that the patient may need to monitor (e.g., heart disease, kidney disease).
         5. Indicate any required follow-up actions, tests, or consultations with specialists (e.g., endocrinologist for diabetes, cardiologist for heart disease).
-        6. Avoid using bold text or any kind of special formatting in the report. Use numbers for listing points.
+        6. Avoid using bold text or any kind of special formatting in the report. Use numbers for listing points. Use nested numbers (e.g., 1.1, 1.2) for sub-points.
         7. Ensure that the report is clear, concise, and medically appropriate.
         8. Provide the heading as "Patient Health Status Report" at the beginning of the report.
-
+        9. Maintain a professional tone suitable for healthcare documentation.
+        10. Add closing note as "This report is based solely on the provided laboratory data. A comprehensive evaluation by a healthcare professional is essential for a complete assessment of the patient's health and appropriate management."
 
         Here is the patient's medical data:
         {dic}
@@ -76,14 +77,15 @@ def get_report(pred, dic):
         Given the medical report data of a patient, generate a positive health report. The model should:
 
         1. Highlight the patient’s current healthy status while being vigilant about any potential concerns in the medical data.
-        2. Provide recommendations for maintaining good health, including preventive measures.
+        2. Provide recommendations for maintaining good health, including preventive measures and medications(Allopathic) if necessary.
         3. Identify specific values that the patient should monitor (e.g., slightly elevated glucose or BMI).
         4. Suggest lifestyle habits or periodic check-ups to avoid upcoming risks.
         5. Offer advice on maintaining a balanced diet, regular exercise, and stress management for long-term health.
-        6. Avoid using bold text or any kind of special formatting in the report. Use numbers for listing points.
+        6. Avoid using bold text or any kind of special formatting in the report. Use numbers for listing points. Use nested numbers (e.g., 1.1, 1.2) for sub-points.
         7. Ensure that the report is clear, concise, and medically appropriate.
         8. Provide the heading as "Patient Health Status Report" at the beginning of the report.
-
+        9. Maintain a professional tone suitable for healthcare documentation.
+        10. Add closing note as "This report is based solely on the provided laboratory data. A comprehensive evaluation by a healthcare professional is essential for a complete assessment of the patient's health and appropriate management."
 
         Here is the patient's medical data:
         {dic}
