@@ -6,30 +6,33 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import img_to_array, load_img
 import io
 import os
+import google.generativeai as genai
+genai.configure(api_key="AIzaSyCZQVAo74ZRlQ4Gei8-XVH3XTIVpVbQo5c")
 
 
 app = Flask(__name__)
+
 
 def predict(values, dic):
     try:
         # Convert input values to NumPy array
         values = np.asarray(values)
-        print(f'Length of values: {len(values)}')
+        print(f"Length of values: {len(values)}")
         if len(values) == 8:
-            model_path = 'models/diabetes.pkl'
+            model_path = "models/diabetes.pkl"
         elif len(values) == 26:
-            model_path = 'models/cancer.pkl'
+            model_path = "models/cancer.pkl"
         elif len(values) == 13:
-            model_path = 'models/heart.pkl'
+            model_path = "models/heart.pkl"
         elif len(values) == 18:
-            model_path = 'models/kidney.pkl'
+            model_path = "models/kidney.pkl"
         elif len(values) == 10:
-            model_path = 'models/liver.pkl'
+            model_path = "models/liver.pkl"
         else:
             raise ValueError("Unexpected number of features for prediction")
 
         # Load model
-        with open(model_path, 'rb') as model_file:
+        with open(model_path, "rb") as model_file:
             model = pickle.load(model_file)
 
         # Make prediction
@@ -43,103 +46,125 @@ def predict(values, dic):
         print(f"An error occurred during prediction: {e}")
         raise
 
+
+def get_report(pred, dic):
+    print("Inside get_report")
+    print(f"Dictionary: {dic}")
+    model = genai.GenerativeModel("gemini-1.5-flash")
+    
+    if pred == 1:
+        # If the patient is suffering from the illness
+        prompt = f"""
+        Given the medical report data of a patient, generate a comprehensive health status report. The model should:
+
+        1. Analyze the patient's condition based on the provided medical data, identifying any signs or risks.
+        2. Provide a prognosis and any associated risks, including possible links to other diseases (e.g., the risk of kidney failure due to diabetes, heart disease related to liver dysfunction).
+        3. Offer treatment recommendations, including lifestyle changes, medications, and any specific tests that may be required for further investigation.
+        4. Mention any other risk factors or conditions that the patient may need to monitor (e.g., heart disease, kidney disease).
+        5. Indicate any required follow-up actions, tests, or consultations with specialists (e.g., endocrinologist for diabetes, cardiologist for heart disease).
+        6. Avoid using bold text or any kind of special formatting in the report. Use numbers for listing points.
+        7. Ensure that the report is clear, concise, and medically appropriate.
+        8. Provide the heading as "Patient Health Status Report" at the beginning of the report.
+
+
+        Here is the patient's medical data:
+        {dic}
+        """
+    else:
+        # If the patient is not suffering from the illness
+        prompt = f"""
+        Given the medical report data of a patient, generate a positive health report. The model should:
+
+        1. Highlight the patient’s current healthy status while being vigilant about any potential concerns in the medical data.
+        2. Provide recommendations for maintaining good health, including preventive measures.
+        3. Identify specific values that the patient should monitor (e.g., slightly elevated glucose or BMI).
+        4. Suggest lifestyle habits or periodic check-ups to avoid upcoming risks.
+        5. Offer advice on maintaining a balanced diet, regular exercise, and stress management for long-term health.
+        6. Avoid using bold text or any kind of special formatting in the report. Use numbers for listing points.
+        7. Ensure that the report is clear, concise, and medically appropriate.
+        8. Provide the heading as "Patient Health Status Report" at the beginning of the report.
+
+
+        Here is the patient's medical data:
+        {dic}
+        """
+
+    print(f"Prompt: {prompt}")
+    response = model.generate_content(prompt)
+    print(f"Response: {response}")
+    cleaned_response = response.text.replace("\n", "<br>").replace("*", "").replace("#", "")
+    print(f"Cleaned Response: {cleaned_response}")
+    return cleaned_response
+
 @app.route("/")
 def home():
-    return render_template('home.html')
+    return render_template("home.html")
 
-@app.route("/diabetes", methods=['GET', 'POST'])
+
+@app.route("/diabetes", methods=["GET", "POST"])
 def diabetesPage():
-    return render_template('diabetes.html')
+    return render_template("diabetes.html")
 
-@app.route("/cancer", methods=['GET', 'POST'])
+
+@app.route("/cancer", methods=["GET", "POST"])
 def cancerPage():
-    return render_template('breast_cancer.html')
+    return render_template("breast_cancer.html")
 
-@app.route("/heart", methods=['GET', 'POST'])
+
+@app.route("/heart", methods=["GET", "POST"])
 def heartPage():
-    return render_template('heart.html')
+    return render_template("heart.html")
 
-@app.route("/kidney", methods=['GET', 'POST'])
+
+@app.route("/kidney", methods=["GET", "POST"])
 def kidneyPage():
-    return render_template('kidney.html')
+    return render_template("kidney.html")
 
-@app.route("/liver", methods=['GET', 'POST'])
+
+@app.route("/liver", methods=["GET", "POST"])
 def liverPage():
-    return render_template('liver.html')
+    return render_template("liver.html")
 
-@app.route("/malaria", methods=['GET', 'POST'])
+
+@app.route("/malaria", methods=["GET", "POST"])
 def malariaPage():
-    return render_template('malaria.html')
+    return render_template("malaria.html")
 
-@app.route("/pneumonia", methods=['GET', 'POST'])
+
+@app.route("/pneumonia", methods=["GET", "POST"])
 def pneumoniaPage():
-    return render_template('pneumonia.html')
+    return render_template("pneumonia.html")
 
-@app.route("/predictPage", methods = ['POST', 'GET'])
+
+@app.route("/predictPage", methods=["POST", "GET"])
 def predictPage():
     try:
         print("Inside Try block")
-        if request.method == 'POST':
+        if request.method == "POST":
             to_predict_dict = request.form.to_dict()
-            print(f'Predict dict:{to_predict_dict}')
+            print(f"Predict dict:{to_predict_dict}")
             to_predict_list = list(map(float, list(to_predict_dict.values())))
-            print(f'Predict List: {to_predict_list}')
+            print(f"Predict List: {to_predict_list}")
             pred = predict(to_predict_list, to_predict_dict)
-            print(f'Prediction: {pred}')
+            report=get_report(pred, to_predict_dict)
+            print(f"request: {request.form}")
+            print(f"list: {to_predict_list}")
+            print(f"dict: {to_predict_dict}")
+            print(f"Prediction: {pred}")
     except:
         message = "Please enter valid Data"
-        return render_template("home.html", message = message)
+        return render_template("home.html", message=message)
 
-    return render_template('predict.html', pred = pred)
+    return render_template("predict.html", pred=pred,report=report)
 
-# @app.route("/malariapredict", methods=['POST', 'GET'])
-# def malariapredictPage():
-#     pred = None
-#     if request.method == 'POST':
-#         try:
-#             if 'image' in request.files:
-#                 # Get the uploaded image
-#                 file = request.files['image']
-                
-#                 # Convert the image to a format that Keras expects (using BytesIO)
-#                 img = Image.open(file.stream)  # Open the image directly from the file stream
-                
-#                 # Resize the image to match the model input size
-#                 img = img.resize((100, 100))  # Resize to match input size of the model
-                
-#                 # Convert image to numpy array and preprocess for prediction
-#                 img = img_to_array(img)  # Convert to array
-#                 img = np.expand_dims(img, axis=0)  # Add batch dimension
-#                 img = img.astype('float32') / 255.0  # Normalize the pixel values
-                
-#                 # Load the malaria detection model
-#                 model = load_model("models/malaria_cnn.keras")
-                
-#                 # Make the prediction
-#                 prediction = model.predict(img)  # Assuming binary classification
-#                 print(prediction)
-#                 # Interpret the result (adjust prediction threshold as needed)
-#                 if prediction[0] > prediction[1]:
-#                     pred = "No malaria detected"
-#                 else:
-#                     pred = "Malaria detected"
-#             else:
-#                 message = "Please upload an Image"
-#                 return render_template('malaria.html', message=message)
-#         except Exception as e:
-#             # Handle errors
-#             message = f"An error occurred: {str(e)}"
-#             return render_template('malaria.html', message=message)
-#     print(pred)
-#     return render_template('malaria_predict.html', pred=pred)
 
 def predict_cell_status(image_path, model):
     # Load the image with target size (100, 100)
     test_image = load_img(image_path, target_size=(100, 100))
-    
+
     # Convert image to array
     test_image = img_to_array(test_image)
-    
+
     # Expand dimensions to match the input shape of the model
     test_image = np.expand_dims(test_image, axis=0)
 
@@ -152,21 +177,22 @@ def predict_cell_status(image_path, model):
     else:
         return "Infected"
 
-@app.route("/malaria_predict", methods=['POST', 'GET'])
+
+@app.route("/malaria_predict", methods=["POST", "GET"])
 def malariapredictPage():
-    if request.method == 'POST':
+    if request.method == "POST":
         # Check if a file was uploaded
-        if 'file' not in request.files:
-            return jsonify({'error': 'No file part'})
-        
-        file = request.files['file']
-        
+        if "file" not in request.files:
+            return jsonify({"error": "No file part"})
+
+        file = request.files["file"]
+
         # Check if the user has uploaded a file
-        if file.filename == '':
-            return jsonify({'error': 'No selected file'})
-        
+        if file.filename == "":
+            return jsonify({"error": "No selected file"})
+
         # Save the file to a separate folder (stored_images)
-        stored_dir = 'stored_images'  # Ensure this directory exists or create it
+        stored_dir = "stored_images"  # Ensure this directory exists or create it
         if not os.path.exists(stored_dir):
             os.makedirs(stored_dir)
 
@@ -177,31 +203,34 @@ def malariapredictPage():
         # Make prediction using the stored image file path
         model = load_model("models/malaria_cnn.keras")
         prediction = predict_cell_status(stored_path, model)
-        
+
         # Return the result with the image path and prediction
-        return render_template('malaria_predict.html', prediction=prediction, image_path=stored_path)
+        return render_template(
+            "malaria_predict.html", prediction=prediction, image_path=stored_path
+        )
 
     # If it's a GET request, render the page with the image upload form
-    return render_template('malaria_predict.html')
+    return render_template("malaria_predict.html")
 
 
-
-@app.route("/pneumoniapredict", methods=['POST', 'GET'])
+@app.route("/pneumoniapredict", methods=["POST", "GET"])
 def pneumoniapredictPage():
     pred = None
-    if request.method == 'POST':
+    if request.method == "POST":
         try:
-            if 'image' in request.files:
+            if "image" in request.files:
                 # Load and preprocess the image
-                img = Image.open(request.files['image']).convert('RGB')
+                img = Image.open(request.files["image"]).convert("RGB")
                 img = img.resize((224, 224))  # Resize to match model input size
                 img = img_to_array(img)  # Convert to numpy array
                 img = img.astype(np.float32) / 255.0  # Normalize pixel values
-                img = np.expand_dims(img, axis=0)  # Add batch dimension (1, 224, 224, 3)
-                
+                img = np.expand_dims(
+                    img, axis=0
+                )  # Add batch dimension (1, 224, 224, 3)
+
                 # Load the pneumonia detection model
                 model = load_model("models/pneumonia_cnn.keras")
-                
+
                 # Make the prediction
                 prediction = model.predict(img)[0]  # Assuming binary classification
                 print(prediction)
@@ -212,15 +241,14 @@ def pneumoniapredictPage():
                     pred = 0  # No pneumonia detected
             else:
                 message = "Please upload an Image"
-                return render_template('pneumonia.html', message=message)
+                return render_template("pneumonia.html", message=message)
         except Exception as e:
             # Handle errors
             message = f"An error occurred: {str(e)}"
-            return render_template('pneumonia.html', message=message)
-    
-    return render_template('pneumonia_predict.html', pred=pred)
+            return render_template("pneumonia.html", message=message)
+
+    return render_template("pneumonia_predict.html", pred=pred)
 
 
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
-
+if __name__ == "__main__":
+    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))

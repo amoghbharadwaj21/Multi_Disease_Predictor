@@ -51,3 +51,4 @@ matplotlib
 opencv-python
 reportlab
 gunicorn
+google.generativeai
