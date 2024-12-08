@@ -1,77 +1,349 @@
-{% extends 'main.html' %}
-{% block content %}
+{% extends 'main.html' %} 
+{% block content %} 
 {% if message %}
-        <div class="alert alert-danger">{{ message }}</div>
-    {% endif %}
-<div class="container">
-    <div class="card card-body" style="border: 1px solid black; box-shadow: 0 0 10px black;">
-        <h2>MEDICO AI</h2>
-        <br>
-        <h2>Model Accuracies:</h2>
-        <ul>
-            <li>Diabetes Model: <strong>98.25%</strong></li>
-            <li>Heart Disease Model: <strong>85.25%</strong></li>
-            <li>Kidney Disease Model: <strong>99%</strong></li>
-            <li>Liver Disease Model: <strong>78%</strong></li>
-            <li>Malaria Model: <strong>96%</strong></li>
-        </ul>
-        <br>
-        <h3>Information about the Diseases which this webApp can predict.</h3>
-        <br>
-        <div class="row">
-            <div class="col-md-12 card card-body" style="box-shadow: 0 0 5px black; margin: 5px;">
-                <h4>Diabetes</h4>
-                <p>Diabetes is a disease that occurs when your blood glucose, also called blood sugar, is too high. Blood glucose is your main source of energy and comes from the food you eat. Insulin, a hormone made by the pancreas, helps glucose from food get into your cells to be used for energy. Sometimes your body doesn’t make enough—or any—insulin or doesn’t use insulin well. Glucose then stays in your blood and doesn’t reach your cells.</p>
-                <h5>Symptoms</h5>
-                <ul>
-                    <li>Urinating often.</li>
-                    <li>Feeling very thirsty.</li>
-                    <li>Extreme fatigue.</li>
-                    <li>Blurry vision.</li>
-                </ul>
-            </div>
-        </div>
-        <br>
+<div class="alert alert-danger">{{ message }}</div>
+{% endif %}
 
-        <br>
-        <div class="row">
-            <div class="col-md-12 card card-body" style="box-shadow: 0 0 5px black; margin: 5px;">
-                <h4>Chronic kidney disease</h4>
-                <p>Chronic kidney disease, also called chronic kidney failure, describes the gradual loss of kidney function. Your kidneys filter wastes and excess fluids from your blood, which are then excreted in your urine. When chronic kidney disease reaches an advanced stage, dangerous levels of fluid, electrolytes and wastes can build up in your body.</p>
-                <h5>Symptoms</h5>
-                <ul>
-                    <li>Nausea</li>
-                    <li>Vomiting</li>
-                    <li>Fatigue and weakness</li>
-                    <li>Muscle twitches and cramps</li>
-                </ul>
-            </div>
-        </div>
-
-        <br>
-        <div class="row">
-            <div class="col-md-12 card card-body" style="box-shadow: 0 0 5px black; margin: 5px;">
-                <h4>Liver disease</h4>
-                <p>Symptoms of liver disease can vary, but they often include swelling of the abdomen and legs, bruising easily, changes in the color of your stool and urine, and jaundice, or yellowing of the skin and eyes. Sometimes there are no symptoms. Tests such as imaging tests and liver function tests can check for liver damage and help to diagnose liver diseases.</p>
-            </div>
-        </div>
-
-        <br>
-        <div class="row">
-            <div class="col-md-12 card card-body" style="box-shadow: 0 0 5px black; margin: 5px;">
-                <h4>Malaria</h4>
-                <p>Malaria is a mosquito-borne infectious disease that affects humans and other animals. Malaria causes symptoms that typically include fever, tiredness, vomiting, and headaches. In severe cases it can cause yellow skin, seizures, coma, or death. Symptoms usually begin ten to fifteen days after being bitten by an infected mosquito. If not properly treated, people may have recurrences of the disease months later.</p>
-                <h5>Symptoms</h5>
-                <ul>
-                    <li>Fever. This is the most common symptom.</li>
-                    <li>Chills</li>
-                    <li>Headache</li>
-                    <li>Nausea and vomiting</li>
-                </ul>
-            </div>
-        </div>
-
-        <br>
+<!-- Hero Section -->
+<div class="relative bg-gradient-to-br from-green-50 to-white">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="text-5xl font-extrabold text-green-800">
+          MEDICO <span class="text-green-600">AI</span>
+        </h1>
+        <p class="text-xl text-gray-600">
+          Your intelligent health companion, leveraging cutting-edge AI to
+          provide personalized medical insights and early disease detection.
+        </p>
+      </div>
+      <div class="hero-image">
+        <img
+          src="https://th.bing.com/th/id/OIP.ZWxTngBrjj7CaR4HlC3YZQHaEc?w=305&h=183&c=7&r=0&o=5&dpr=1.1&pid=1.7"
+          alt="Medical AI"
+          class="rounded-xl shadow-2xl border-4 border-green-100"
+        />
+      </div>
     </div>
+  </div>
 </div>
+
+<!-- Features Section -->
+<div class="container section-gap features-container">
+  <div class="section-title">
+    <h2 class="section-heading">Our Advanced Capabilities</h2>
+    <p class="section-description">
+      Innovative AI solutions for comprehensive health assessment
+    </p>
+  </div>
+  <div class="features">
+    <div class="feature">
+      <div class="feature-icon">
+        <i class="icon-brain"></i>
+      </div>
+      <h3 class="feature-title">General Health Diagnosis</h3>
+      <p class="feature-description">
+        Comprehensive AI-powered symptom analysis and personalized health
+        insights.
+      </p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">
+        <i class="icon-microscope"></i>
+      </div>
+      <h3 class="feature-title">Precise Image Analysis</h3>
+      <p class="feature-description">
+        Malaria detection through advanced cell image processing.
+      </p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">
+        <i class="icon-heart"></i>
+      </div>
+      <h3 class="feature-title">Specialized Disease Detection</h3>
+      <p class="feature-description">
+        Advanced models for heart, liver, kidney, and diabetes diagnostics.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Diseases Covered Section -->
+<div class="container section-gap">
+  <div class="section-title">
+    <h2 class="section-heading">Diseases We Address</h2>
+    <p class="section-description">
+      Comprehensive diagnostic support across multiple health conditions
+    </p>
+  </div>
+  <div class="diseases">
+    <div class="disease">
+      <div class="disease-icon">
+        <i class="icon-stethoscope"></i>
+      </div>
+      <h3 class="disease-name">General Health</h3>
+    </div>
+    <div class="disease">
+      <div class="disease-icon">
+        <i class="icon-heart"></i>
+      </div>
+      <h3 class="disease-name">Heart Disease</h3>
+    </div>
+    <div class="disease">
+      <div class="disease-icon">
+        <i class="icon-flask"></i>
+      </div>
+      <h3 class="disease-name">Liver Disease</h3>
+    </div>
+    <div class="disease">
+      <div class="disease-icon">
+        <i class="icon-shield"></i>
+      </div>
+      <h3 class="disease-name">Kidney Disease</h3>
+    </div>
+    <div class="disease">
+      <div class="disease-icon">
+        <i class="icon-brain"></i>
+      </div>
+      <h3 class="disease-name">Diabetes</h3>
+    </div>
+    <div class="disease">
+      <div class="disease-icon">
+        <i class="icon-microscope"></i>
+      </div>
+      <h3 class="disease-name">Malaria</h3>
+    </div>
+  </div>
+</div>
+
+<!-- Call to Action Section -->
+<div class="cta-section section-gap">
+  <div class="container text-center">
+    <h2 class="cta-heading">Your Health, Our Priority</h2>
+    <p class="cta-description">
+      Take the first step towards proactive healthcare with MEDICO AI
+    </p>
+  </div>
+</div>
+
+<!-- Inline CSS -->
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-gap {
+    margin-top: 50px;
+  }
+
+  .relative {
+    position: relative;
+  }
+
+  .bg-gradient-to-br {
+    background: linear-gradient(to bottom right, #e8f8e3, #ffffff);
+  }
+
+  .hero-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 80px 0;
+  }
+
+  .hero-text {
+    max-width: 500px;
+  }
+
+  .hero-text h1 {
+    font-size: 48px;
+    font-weight: 800;
+    color: #2d6a4f;
+  }
+
+  .hero-text p {
+    font-size: 20px;
+    color: #4a5568;
+  }
+
+  .hero-buttons {
+    margin-top: 20px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-primary {
+    background-color: #38a169;
+    color: white;
+    margin-right: 10px;
+  }
+
+  .btn-primary:hover {
+    background-color: #2f855a;
+  }
+
+  .btn-secondary {
+    border: 2px solid #38a169;
+    color: #38a169;
+  }
+
+  .btn-secondary:hover {
+    background-color: #f0fdf4;
+  }
+
+  .hero-image img {
+    max-width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .section-title {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .section-heading {
+    font-size: 36px;
+    font-weight: bold;
+    color: #2d6a4f;
+  }
+
+  .section-description {
+    color: #4a5568;
+    margin-top: 10px;
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+    justify-items: center;  /* This will center the items in the grid */
+  }
+  
+
+  .feature {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .feature:hover {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  }
+
+  .feature-icon i {
+    font-size: 48px;
+    color: #38a169;
+  }
+
+  .feature-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2d6a4f;
+    margin-top: 10px;
+  }
+
+  .feature-description {
+    color: #4a5568;
+    margin-top: 10px;
+  }
+
+  .diseases {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+
+  .disease {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .disease-icon i {
+    font-size: 36px;
+    color: #38a169;
+  }
+
+  .disease-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2d6a4f;
+    margin-top: 10px;
+  }
+
+  .cta-section {
+    background-color: #2f855a;
+    color: white;
+    padding: 60px 0;
+  }
+
+  .cta-heading {
+    font-size: 36px;
+    font-weight: bold;
+    color: white;
+  }
+
+  .cta-description {
+    font-size: 20px;
+    margin-top: 10px;
+  }
+
+  .cta-btn {
+    background-color: white;
+    color: #2f855a;
+    padding: 15px 40px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 30px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+  }
+
+  .cta-btn:hover {
+    background-color: #f0fdf4;
+  }
+
+  /* Responsive styling for small screens */
+@media (max-width: 768px) {
+    .hero-content {
+      flex-direction: column-reverse; /* Stack the content vertically */
+      align-items: center; /* Center the items */
+    }
+  
+    .hero-text {
+      text-align: center; /* Center text on small screens */
+      max-width: 100%; /* Allow the text to take full width */
+      margin-top: 30px; /* Add space between text and image */
+    }
+  
+    .hero-image {
+      margin-bottom: 30px; /* Add some space above the image */
+    }
+  }
+</style>
+
 {% endblock %}

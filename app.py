@@ -7,7 +7,9 @@ from tensorflow.keras.preprocessing.image import img_to_array, load_img
 import io
 import os
 import google.generativeai as genai
+
 genai.configure(api_key="AIzaSyCZQVAo74ZRlQ4Gei8-XVH3XTIVpVbQo5c")
+model = genai.GenerativeModel("gemini-1.5-flash")
 
 
 app = Flask(__name__)
@@ -50,8 +52,7 @@ def predict(values, dic):
 def get_report(pred, dic):
     print("Inside get_report")
     print(f"Dictionary: {dic}")
-    model = genai.GenerativeModel("gemini-1.5-flash")
-    
+
     if pred == 1:
         # If the patient is suffering from the illness
         prompt = f"""
@@ -94,13 +95,69 @@ def get_report(pred, dic):
     print(f"Prompt: {prompt}")
     response = model.generate_content(prompt)
     print(f"Response: {response}")
-    cleaned_response = response.text.replace("\n", "<br>").replace("*", "").replace("#", "")
+    cleaned_response = (
+        response.text.replace("\n", "<br>").replace("*", "").replace("#", "")
+    )
     print(f"Cleaned Response: {cleaned_response}")
     return cleaned_response
+
 
 @app.route("/")
 def home():
     return render_template("home.html")
+
+
+@app.route("/general-health", methods=["GET", "POST"])
+def generalHealthPage():
+    if request.method == "POST":
+        print(request.form.to_dict())
+        form_data = request.form.to_dict()
+        prompt = f""" 
+        You are a friendly and professional medical assistant AI. Your goal is to provide a positive, empathetic, and actionable diagnosis for a patient based on their symptoms.  Below are the details of the patient.
+        {form_data}
+        Analyze the information and provide the following:
+        1. A diagnosis listing possible conditions.
+        2. Potential health risks associated with the symptoms.
+        3. Medications or treatments to consider, including dosage and precautions.
+        4. Lifestyle and dietary recommendations.
+        5. Instructions for follow-up if symptoms persist.
+        6. Avoid using bold text or any kind of special formatting in the report. Use numbers for listing points. Use nested numbers (e.g., 1.1, 1.2) for sub-points.
+        7. Ensure that the report is clear, concise, and medically appropriate.
+        8. Provide the heading as "Patient Health Status Report" at the beginning of the report.
+        9. Add closing note as "This report is based solely on the provided data. A comprehensive evaluation by a healthcare professional is essential for a complete assessment of the patient's health and appropriate management."
+        10. Don't tell that you don't have enough information to make a diagnosis. Instead, provide a general diagnosis based on the symptoms.
+        11. Don't tell that you can not provide a prescription. Instead, provide a general prescription for the symptoms.
+        
+        Your Response Should Include:
+
+        1. Diagnosis:
+        List potential conditions based on the symptoms.
+        
+        2. Potential Risks:
+        Highlight any significant health risks associated with the symptoms.
+        
+        3. Recommended Medications:
+        Provide names of medications (if applicable), dosage, and precautions.
+        Ensure to mention when to consult a doctor for prescription-only medications.
+        
+        4. Lifestyle and Dietary Recommendations:
+        Suggest actionable steps the patient can take at home to alleviate symptoms.
+        
+        5. Follow-Up Instructions:
+        Specify when the patient should seek medical attention if symptoms persist or worsen.
+        Respond in the form of a structured prescription for clarity and usability.
+        
+        """
+        response = model.generate_content(prompt)
+        print(f"Response: {response}")
+        cleaned_response = (
+            response.text.replace("\n", "<br>").replace("*", "").replace("#", "")
+        )
+        print(f"Cleaned Response: {cleaned_response}")
+        
+        return render_template("general_health_diagnosis.html",diagnosis=cleaned_response)
+    else:
+        return render_template("general_health.html")
 
 
 @app.route("/diabetes", methods=["GET", "POST"])
@@ -148,7 +205,7 @@ def predictPage():
             to_predict_list = list(map(float, list(to_predict_dict.values())))
             print(f"Predict List: {to_predict_list}")
             pred = predict(to_predict_list, to_predict_dict)
-            report=get_report(pred, to_predict_dict)
+            report = get_report(pred, to_predict_dict)
             print(f"request: {request.form}")
             print(f"list: {to_predict_list}")
             print(f"dict: {to_predict_dict}")
@@ -157,7 +214,7 @@ def predictPage():
         message = "Please enter valid Data"
         return render_template("home.html", message=message)
 
-    return render_template("predict.html", pred=pred,report=report)
+    return render_template("predict.html", pred=pred, report=report)
 
 
 def predict_cell_status(image_path, model):

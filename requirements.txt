@@ -52,3 +52,4 @@ opencv-python
 reportlab
 gunicorn
 google.generativeai
+xgboost

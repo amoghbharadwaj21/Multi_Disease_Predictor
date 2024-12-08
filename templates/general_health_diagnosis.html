@@ -1,0 +1,21 @@
+{% extends 'main.html' %} {% block content %}
+
+<div class="row" style="margin-bottom: 175px">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+    <center><h1>Diagnosis Result</h1></center>
+    <div class="report" style="max-width: 700px; margin: 0 auto">
+      {% if diagnosis %}
+      <div class="report mt-4 text-justify">{{ diagnosis | safe }}</div>
+      {% endif %}
+    </div>
+    <div class="col-md-4 mx-auto mt-5">
+      <a href="{{ url_for('home') }}" class="btn btn-block btn-primary "
+        >Back to Home</a
+      >
+    </div>
+  </div>
+  <div class="col-md-2"></div>
+</div>
+
+{% endblock %}
