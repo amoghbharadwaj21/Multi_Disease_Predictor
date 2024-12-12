@@ -10,7 +10,9 @@
             {% endif %}
             <div class="row">
                 <div class="col-md-4"></div>
-                <div class="col-md-4"><a href="{{ url_for('home') }}" class="btn btn-block btn-primary">Back to Home</a></div>
+                <div class="col-md-4">
+                    <a href="{{ url_for('home') }}" class="btn btn-block btn-primary">Back to Home</a>
+                </div>
                 <div class="col-md-4"></div>
             </div>
         </div>
@@ -22,4 +24,18 @@
             {% endif %}
         </div>   
     </div>
+    <div class="text-center mt-4">
+        <button id="printButton" class="btn btn-primary">Print</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const printButton = document.getElementById('printButton');
+            printButton.addEventListener('click', function () {
+                window.print();
+            });
+        });
+    </script>
 {% endblock %}
+
+

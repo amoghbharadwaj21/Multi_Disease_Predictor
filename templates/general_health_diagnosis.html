@@ -1,4 +1,5 @@
-{% extends 'main.html' %} {% block content %}
+{% extends 'main.html' %}
+{% block content %}
 
 <div class="row" style="margin-bottom: 175px">
   <div class="col-md-2"></div>
@@ -10,12 +11,22 @@
       {% endif %}
     </div>
     <div class="col-md-4 mx-auto mt-5">
-      <a href="{{ url_for('home') }}" class="btn btn-block btn-primary "
-        >Back to Home</a
-      >
+      <a href="{{ url_for('home') }}" class="btn btn-block btn-primary">Back to Home</a>
+    </div>
+    <div class="col-md-4 mx-auto mt-3 text-center">
+      <button id="printButton" class="btn btn-primary">Print</button>
     </div>
   </div>
   <div class="col-md-2"></div>
 </div>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      const printButton = document.getElementById('printButton');
+      printButton.addEventListener('click', function () {
+          window.print(); 
+      });
+  });
+</script>
 
 {% endblock %}
+
