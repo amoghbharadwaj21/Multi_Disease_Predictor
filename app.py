@@ -8,7 +8,10 @@ import io
 import os
 import google.generativeai as genai
 
-genai.configure(api_key="AIzaSyCZQVAo74ZRlQ4Gei8-XVH3XTIVpVbQo5c")
+
+GeminiAPIKey=os.getenv("GeminiAPIKey")
+print(GeminiAPIKey)
+genai.configure(api_key=GeminiAPIKey)
 model = genai.GenerativeModel("gemini-1.5-flash")
 
 
